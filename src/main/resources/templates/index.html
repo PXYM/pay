@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>支付测试</title>
+</head>
+<style>
+  form {
+    height: 400px;
+    width: 250px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  div{
+    display: flex;
+    justify-content: space-between;
+  }
+  label {
+    width: 100px;
+  }
+</style>
+<body>
+<h1 align="center">支付页面</h1>
+<form id="paymentForm" align="center">
+  <div>
+    <label for="subject">订单主题：</label>
+    <input type="text" id="subject" name="subject" value="测试">
+  </div>
+  <div>
+    <label for="tradeType">交易类型：</label>
+    <input type="number" id="tradeType" name="tradeType" value="1">
+  </div>
+  <div>
+    <label for="channel">支付渠道：</label>
+    <input type="number" id="channel" name="channel" value="0">
+  </div>
+  <div>
+    <label for="orderSn">订单号：</label>
+    <input type="text" id="orderSn" name="orderSn" value="">
+  </div>
+  <div>
+    <label for="outOrderSn">子订单号：</label>
+    <input type="text" id="outOrderSn" name="outOrderSn" value="">
+  </div>
+  <div>
+    <label for="orderRequestId">商户标识ID：</label>
+    <input type="text" id="orderRequestId" name="orderRequestId" value="">
+  </div>
+
+  <div>
+    <label for="totalAmount">订单金额：</label>
+    <input type="number" id="totalAmount" name="totalAmount" value="">
+  </div>
+    <input type="button" value="订单数据生成" onclick="autoGenData()" style="width: 200px;margin: 0 auto">
+    <input type="button" value="支付" onclick="submitPayment()" style="width: 200px;margin: 0 auto">
+</form>
+<script>
+
+  function autoGenData() {
+    // 生成随机订单号
+    const orderSn = generateOrderNumber();
+    document.getElementById('orderSn').value = orderSn;
+
+    // 生成随机子订单号
+    const outOrderSn = generateOrderNumber();
+    document.getElementById('outOrderSn').value = outOrderSn;
+
+    // 生成随机商户标识ID
+    const orderRequestId = generateOrderNumber();
+    document.getElementById('orderRequestId').value = orderRequestId;
+
+    // 生成随机订单金额
+    const totalAmount = generateRandomAmount();
+    document.getElementById('totalAmount').value = totalAmount;
+  }
+
+  // 生成随机订单号的函数
+  function generateOrderNumber() {
+    let date = new Date();
+    let year = date.getFullYear();
+    let month = padNumber(date.getMonth() + 1);
+    let day = padNumber(date.getDate());
+    let hours = padNumber(date.getHours());
+    let minutes = padNumber(date.getMinutes());
+    let seconds = padNumber(date.getSeconds());
+    let milliseconds = padNumber(date.getMilliseconds());
+    let random = padNumber(Math.floor(Math.random() * 10000));
+    return '' + year + month + day + hours + minutes + seconds + milliseconds + random;
+  }
+  // 生成随机金额
+  function generateRandomAmount() {
+    return (Math.random() * 100).toFixed(2);
+  }
+  // 补全数字，使其达到指定的位数
+  function padNumber(num) {
+    return num.toString().padStart(2, '0');
+  }
+
+  function submitPayment() {
+    localStorage.setItem("out_order_no", document.getElementById('outOrderSn').value)
+    const formData = new FormData(document.getElementById("paymentForm"));
+    const jsonData = {};
+    for (const [key, value] of formData.entries()) {
+      jsonData[key] = value;
+    }
+    const url = "http://127.0.0.1:12000/pay/create";
+    fetch(url, {
+      method: "POST",
+      body: JSON.stringify(jsonData),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+    .then(response => {
+      response.json().then(value => {
+        document.body.innerHTML = value.data.body;
+        document.forms[0].submit();
+      })
+    })
+    .catch(error => {
+      console.error('There has been a problem with your fetch operation:', error);
+      alert("支付失败，请重试！");
+    });
+  }
+</script>
+</body>
+</html>

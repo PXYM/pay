@@ -1,0 +1,33 @@
+server:
+  port: 12000
+
+spring:
+  application:
+    name: alipay-service
+  data:
+    redis:
+      host: 127.0.0.1
+      password: 123456
+      port: 6379
+      timeout: 50000
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/pay?useUnicode=true&characterEncoding=UTF-8&rewriteBatchedStatements=true&allowMultiQueries=true&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+
+
+pay:
+  alipay:
+    alipay-public-key: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsvFHNkO+Xv/ApV2HgLo4unW0fqt+ItynEDuDbEpJ27HJYO/Xzcmp9TRksyjXf2rSes3fqd8176umjxbuhmF/Oqfv4Z3B3a0aLS/ifyhAJgYyd7v3RG6LhJCWjiVmjZ0Fd/bZYgbEOQml7fjY00GSWfC3RpZW0sIncgOaMPjyB0n0QkNwp8JQd3PTbwy3/ne/lihotXfWqRgXLmPhxK8a9kLZhjspT1SNRQMqpsv8ZKVWyGdX5y+nG5aDUGehNPF6TFSBQN1deNJQRaq6W+IhHq+qzqCZm+uvtTH99yLE3spUcOqsVbq2/5Vs5TlFLWGB6TAqYRXGJSm9i8oh6NytHwIDAQAB
+    app-id: 9021000134689718
+    charset: UTF8
+    format: json
+    notify-url: http://seinfish.free.idcfengye.com/pay/alipay/callback
+    return-url: http://seinfish.free.idcfengye.com/home
+    private-key: MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCCDm15qxL2ddxR+Wgzuc93dOH2ur2LYPjZk6cKvwJVaHBibL4wgM+L98U3evY/FnMcV0GAgj2V9UZyk8UrCU1FhHx7LBOnUVE7hJXcbGd3EdIRDo5vNvORPbqP+u/iHMlnjgfAGJqK8cyboQvRQlo3/H6fmGOM53VrBdwYrWTb4sKWgQI15fwXvEQc89drR8EeIlsL7HLyf9N1mNZ7W+L2/omw1hkn+V8aqTK6JkJZ9x5MOnpRY9rDABn61RXw6Hz7SpcCBHWM8+0at/pVlJLeZyE6HljvRGwNQjVGsSKOdmwIFjwayeF548E2HBkJzvC6jk5YtTkm8mU9pYAw8KblAgMBAAECggEAMsvpzFSaEnMUO1w7a8COHK0lOJXVRGP6rhhybMsP4UXqZzbrzcvxxExg1fuLxDZDfXVDGytDXJexDT1UDCwU5ysI557eikJDhQiS88XPX30xXAIgdaWz2i2O+X9cRCdULsMVmdzCN7SbYsmy8OeGj0lqN3FwqG8auFNQlL7cntjRXFnYmGq9afwT+Ga7wV+H1skxlZINabEFq6l5+2E/Ypjau2CCrcKrx6ewmOlrdaz9RlHoOYy+PXpfBniPBLUQX6o1HGq+IfL6aiNZu2Ti4/c+JBFQ1oqPMqpNCv3LTCr8koXVDjaFHSFrTclB8VzswtoTIsZZAzGji+ji6tFI3QKBgQDUB2Gw3MTJQffw7vmfO+izdp/NYpNHFPb+U1KMpnHdtDWrKyePnvBGuEE5MSUecnskOy+NZ/8m2cKSVMhaa4dilGQRcN/8LPwiRPK+jdwd48T3VQApcujLBG4BtlKwoZHONi21yr3MDADC5NNqeYhIvvFATbAihEzkVJsshhUXDwKBgQCdBx/UD5PkyeP9NGlAPCPTA6kS/U/SBwPX5bnbApjiJfgIDgPtO/kWhVsFTO/vPLMkzvkeLtJjQmoo+qdgMAnaIxtR9vSz+Y4JSovl6aNpYRBqXpPcN6p4jCjIxLyX2aXfKZrCf9Ep3Xl061s6DcCE68X1s6KCTXMzRAbUAWLCywKBgHo3Bwh7OLMJY3FtTlWKosdPSS2J9Hq0iupt/Nc12cyBY64WYedXJgidjHr66Ppz4qcvtmk72Mb8Hjtaw2HbOV6JSmUDOxiQlYTrWUCdZJOWBqLKTB2YLrdXBlHWVjOZ7gF/GToAcwZ6pLWyUGq/Qt8rsMPwA+bhe7DhU9CGOQHhAoGAaRH3TiIOR6x/jVGgi4ayQePVIgu1eUeQXsosjksymT/msx0Nq5PRnCwnN2i/s0jeZebH8lZKGHi8KCdwD4CVVwzenv2rxzFYxQbIjVLEMSLtpP8b2OK2gmrmb1CVENZlkul30GVOQ8EaIA3LwRCqnUZV8437U00XpFoEZ591wfkCgYEAy8qz6BbDghbrkhPrr7NJZFRXaS36VY/39qzJeagdw2qgBlejcptUkuQE1jntPBhO+jkGrBLTi5BK3pAHzkms92YKsNRcfKK2zZh+cPx10LV43oAQ7pM/L5J2+YNlS18xbRpGKFsV42qTxXW9Qq455oT9zbU6EHyE9Khm26o+uXA=
+    server-url: https://openapi-sandbox.dl.alipaydev.com/gateway.do
+    sign-type: RSA2
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
